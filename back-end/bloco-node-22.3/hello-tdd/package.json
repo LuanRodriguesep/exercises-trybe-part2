@@ -1,0 +1,28 @@
+{
+  "name": "sd-014-c-live-lectures",
+  "version": "1.0.0",
+  "description": "Projeto praticado durante a aula ao vivo 22.3 T14 C",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tryber/sd-014-c-live-lectures.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tryber/sd-014-c-live-lectures/issues"
+  },
+  "homepage": "https://github.com/tryber/sd-014-c-live-lectures#readme",
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "mocha": "^9.1.3",
+    "sinon": "^12.0.1"
+  },
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  }
+}
