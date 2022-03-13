@@ -7,7 +7,11 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     description: DataTypes.STRING,
     series: DataTypes.FLOAT,
-  });
+  }, {});
+
+  Gym.associate = (models) => {
+    Gym.belongsTo(models.Instructor, { as: 'instructor', foreignKey: 'instructorId' });
+  };
 
   return Gym;
 };

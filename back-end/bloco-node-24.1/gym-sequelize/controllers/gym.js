@@ -2,13 +2,13 @@ const express = require('express');
 
 const router = express.Router();
 
-const { Gym } = require('../models');
+const { Gym, Instructor } = require('../models');
 
 router.post('/', async (req, res, next) => {
-  const { name , description, series } = req.body;
+  const { name , description, series, instructorId } = req.body;
   
   try {
-    const created = await Gym.create({ name, description, series });
+    const created = await Gym.create({ name, description, series, instructorId });
 
     return res.status(201).send(created);
 
@@ -32,7 +32,11 @@ router.get('/:id', async(req, res, next) => {
   try {
     const { id } = req.params;
 
-    const exercise = await Gym.findByPk(id)
+    const exercise = await Gym.findByPk(id, {
+      include: { model: Instructor, as: 'instructor', attributes: {
+        exclude: ['password'],
+      }}
+    })
 
     if (!exercise) {
       return res.status(204).end();
@@ -49,7 +53,7 @@ router.get('/:id', async(req, res, next) => {
   router.put('/:id', async(req, res, next) => {
     try {
       const { id } = req.params;
-      const { name, description, series } = req.body;
+      const { name, description, series, instructorId } = req.body;
 
       const exercise = await Gym.findByPk(id);
 
@@ -57,11 +61,11 @@ router.get('/:id', async(req, res, next) => {
         return res.status(404).end();
       }
 
-      await Gym.update({ name, description, series }, { where: {
+      await Gym.update({ name, description, series, instructorId }, { where: {
         id: req.params.id
       }})
 
-      return res.status(200).send({ ...exercise.dataValues, name, description, series })
+      return res.status(200).send({ ...exercise.dataValues, name, description, series, instructorId })
 
     } catch (e) {
       console.log(e.message);
